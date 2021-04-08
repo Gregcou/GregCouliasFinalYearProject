@@ -14,6 +14,9 @@ public class SquareControl : MonoBehaviour
     public List<int> oldNeighboursStates = new List<int>();
     public int neighboursStateTotal = 0;
     public float updatePeriod;
+    int waterValue = 3;
+    int waterPlantValue = 4;
+    int dyingWaterPlantValue = 5;
 
     void Start()
     {
@@ -21,7 +24,7 @@ public class SquareControl : MonoBehaviour
         gridSize = manager.gridSize;
         currentState = manager.squaresStates[squareNum];
 
-        if (currentState == 3)
+        if (currentState == waterValue)
         {
             turnWater();
         }
@@ -76,25 +79,33 @@ public class SquareControl : MonoBehaviour
 
     void turnWater()
     {
-        currentState = 3;
+        currentState = waterValue;
         sr.color = new Color(0f, 0f, 255f, 1f);
-        manager.squaresStates[squareNum] = 3;
+        manager.squaresStates[squareNum] = waterValue;
     }
 
     void turnWaterPlant()
     {
-        currentState = 4;
+        currentState = waterPlantValue;
         sr.color = new Color(0f, 255f, 0f, 1f);
-        manager.squaresStates[squareNum] = 4;
-        StartCoroutine(plantDeath());
+        manager.squaresStates[squareNum] = waterPlantValue;
+        StartCoroutine("plantDeath");
+        gameObject.tag = "WaterPlant";
     }
 
     void turnDyingWaterPlant()
     {
         Debug.Log("TurnDyingPlant");
-        currentState = 5;
+        currentState = dyingWaterPlantValue;
         sr.color = new Color(0f, 255f, 0f, 1f);
-        manager.squaresStates[squareNum] = 5;
+        manager.squaresStates[squareNum] = dyingWaterPlantValue;
+    }
+
+    public void eatPlant(string coroutineName)
+    {
+        StopCoroutine(coroutineName);
+        turnOff();
+        gameObject.tag = "Square";
     }
 
     private IEnumerator checkState()
@@ -103,7 +114,7 @@ public class SquareControl : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             neighboursStateTotal = 0;
-            if (currentState != 3 && currentState != 4 && currentState != 5)
+            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue)
             {
                 for (int i = 0; i < neighbours.Count; i++)
                 {
@@ -122,12 +133,12 @@ public class SquareControl : MonoBehaviour
                 bool nextToDyingPlant = false;
                 for (int i = 0; i < neighbours.Count; i++)
                 {
-                    if (neighboursStates[i] == 3)
+                    if (neighboursStates[i] == waterValue)
                     {
                         nextToWater = true;
                     }
 
-                    if (neighboursStates[i] == 5)
+                    if (neighboursStates[i] == dyingWaterPlantValue)
                     {
                         nextToDyingPlant = true;
                     }
@@ -149,10 +160,11 @@ public class SquareControl : MonoBehaviour
 
     private IEnumerator plantDeath()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(30);
         turnDyingWaterPlant();
         yield return new WaitForSeconds(2);
         turnOff();
+        gameObject.tag = "Square";
         yield break;
     }
 
