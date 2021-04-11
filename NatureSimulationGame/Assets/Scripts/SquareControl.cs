@@ -17,6 +17,10 @@ public class SquareControl : MonoBehaviour
     int waterValue = 3;
     int waterPlantValue = 4;
     int dyingWaterPlantValue = 5;
+    public Sprite[] sprites;
+    public Animator animator;
+    float worldTime = 0.0f;
+    int temperature = 15;
 
     void Start()
     {
@@ -51,11 +55,17 @@ public class SquareControl : MonoBehaviour
         }
 
         StartCoroutine(checkState());
-        
+        StartCoroutine(increaseTemperature());
+
     }
 
     void Update()
     {
+        worldTime += Time.deltaTime;
+        int seconds = (int)(worldTime % 60);
+        //Debug.Log("Time = " + seconds);
+        //Debug.Log("Temp = " + temperature);
+
         for (int i = 0; i < neighbours.Count; i++)
         {
             neighboursStates[i] = manager.squaresStates[neighbours[i]];
@@ -66,28 +76,36 @@ public class SquareControl : MonoBehaviour
     void turnOn()
     {
         currentState = 1;
-        sr.color = new Color(0f, 0f, 0f, 1f);
+        //sr.color = new Color(0f, 0f, 0f, 1f);
+        animator.SetInteger("SquareState", 1);
+        //sr.sprite = sprites[6];
         manager.squaresStates[squareNum] = 1;
     }
 
     void turnOff()
     {
         currentState = 0;
-        sr.color = new Color(255f, 255f, 255f, 1f);
+        //sr.color = new Color(255f, 255f, 255f, 1f);
+        animator.SetInteger("SquareState", 0);
+        //sr.sprite = sprites[4];
         manager.squaresStates[squareNum] = 0;
     }
 
     void turnWater()
     {
         currentState = waterValue;
-        sr.color = new Color(0f, 0f, 255f, 1f);
+        //sr.color = new Color(0f, 0f, 255f, 1f);
+        animator.SetInteger("SquareState", 3);
+        //sr.sprite = sprites[0];
         manager.squaresStates[squareNum] = waterValue;
     }
 
     void turnWaterPlant()
     {
         currentState = waterPlantValue;
-        sr.color = new Color(0f, 255f, 0f, 1f);
+        //sr.color = new Color(0f, 255f, 0f, 1f);
+        animator.SetInteger("SquareState", 4);
+        //sr.sprite = sprites[9];
         manager.squaresStates[squareNum] = waterPlantValue;
         StartCoroutine("plantDeath");
         gameObject.tag = "WaterPlant";
@@ -97,7 +115,7 @@ public class SquareControl : MonoBehaviour
     {
         Debug.Log("TurnDyingPlant");
         currentState = dyingWaterPlantValue;
-        sr.color = new Color(0f, 255f, 0f, 1f);
+        //sr.color = new Color(0f, 255f, 0f, 1f);
         manager.squaresStates[squareNum] = dyingWaterPlantValue;
     }
 
@@ -149,6 +167,28 @@ public class SquareControl : MonoBehaviour
                     turnWaterPlant();
                 }
             }
+
+            if (currentState == waterPlantValue)
+            {
+                int numOfGrass = 0;
+                Debug.Log("waterplant");
+                for (int i = 0; i < neighbours.Count; i++)
+                {
+                    if (neighboursStates[i] == 1)
+                    {
+                        numOfGrass += 1;
+                    }
+                }
+                if (numOfGrass >= 2)
+                {
+                    Debug.Log(">2 ");
+                    animator.SetInteger("SquareState", 6);
+                }
+                else
+                {
+                    animator.SetInteger("SquareState", 4);
+                }
+            }
             
 
             
@@ -166,6 +206,18 @@ public class SquareControl : MonoBehaviour
         turnOff();
         gameObject.tag = "Square";
         yield break;
+    }
+
+    private IEnumerator increaseTemperature()
+    {
+        int tempIncrease = 1;
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            temperature += tempIncrease;
+            tempIncrease += 1;
+        }
+        
     }
 
     private void findNeighbours()

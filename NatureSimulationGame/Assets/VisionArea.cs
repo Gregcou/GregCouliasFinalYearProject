@@ -6,7 +6,7 @@ public class VisionArea : MonoBehaviour
 {
 
     Turtle turtleScript;
-    SquareControl currentSquare;
+    public SquareControl currentSquare;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +49,7 @@ public class VisionArea : MonoBehaviour
                 if (other.gameObject.tag == "WaterPlant")
                 {
                     Debug.Log("reach area collision");
-                    currentSquare.eatPlant("plantDeath");
+                    other.gameObject.GetComponent<SquareControl>().eatPlant("plantDeath");
                     turtleScript.hungerLevel += 1;
                     turtleScript.movingToObject = false;
                 }

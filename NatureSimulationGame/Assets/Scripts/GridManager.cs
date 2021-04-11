@@ -34,23 +34,20 @@ public class GridManager : MonoBehaviour
         squaresStates[Random.Range(0, listLength)] = 1;
         squaresStates[Random.Range(0, listLength)] = 1;
         squaresStates[Random.Range(0, listLength)] = 1;
-        squaresStates[2] = 3;
-        squaresStates[3] = 3;
-        squaresStates[12] = 3;
-        squaresStates[13] = 3;
-        squaresStates[22] = 3;
-        squaresStates[23] = 3;
-        squaresStates[32] = 3;
-        squaresStates[33] = 3;
-        squaresStates[32] = 3;
-        squaresStates[33] = 3;
-        squaresStates[42] = 3;
-        squaresStates[43] = 3;
-        squaresStates[52] = 3;
-        squaresStates[53] = 3;
-        squaresStates[1] = 4;
-        squaresStates[41] = 4;
-        squaresStates[24] = 4;
+        squaresStates[17] = 1;
+        squaresStates[18] = 1;
+        squaresStates[27] = 1;
+        squaresStates[28] = 1;
+        squaresStates[30] = 1;
+        for (int i=0;i<15;i++)
+        {
+            squaresStates[14 + (gridSize * i)] = 3;
+            squaresStates[15 + (gridSize * i)] = 3;
+            squaresStates[16 + (gridSize * i)] = 3;
+        }
+        squaresStates[gridSize * 6 + 17] = 4;
+        squaresStates[gridSize * 6 + 13] = 4;
+        squaresStates[gridSize * 8 + 17] = 4;
         squaresStates[30] = 1;
     }
 
