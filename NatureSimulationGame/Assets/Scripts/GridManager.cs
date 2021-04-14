@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class GridManager : MonoBehaviour
 {
 
@@ -11,6 +11,8 @@ public class GridManager : MonoBehaviour
     public int listLength;
     public int[] squaresStates;
     public float timeScale;
+    float worldTime = 0.0f;
+    int temperature = 15;
 
     void Start()
     {
@@ -27,8 +29,13 @@ public class GridManager : MonoBehaviour
                 squares[counter].GetComponent<SquareControl>().squareNum = counter;
                 counter++;
             }
-                
         }
+
+
+
+        StartCoroutine(increaseTemperature());
+
+
         squaresStates[Random.Range(0,listLength)] = 1;
         squaresStates[Random.Range(0, listLength)] = 1;
         squaresStates[Random.Range(0, listLength)] = 1;
@@ -49,10 +56,36 @@ public class GridManager : MonoBehaviour
         squaresStates[gridSize * 6 + 13] = 4;
         squaresStates[gridSize * 8 + 17] = 4;
         squaresStates[30] = 1;
+
     }
 
     void Update()
     {
-        
+        worldTime += Time.deltaTime;
+        int seconds = (int)(worldTime % 60);
+        //Debug.Log("Time = " + seconds);
+        //Debug.Log("Temp = " + temperature);
+
+        if (seconds == 20)
+        {
+            endGame();
+        }
+    }
+
+    private IEnumerator increaseTemperature()
+    {
+        int tempIncrease = 1;
+        while (true)
+        {
+            yield return new WaitForSeconds(5);
+            temperature += tempIncrease;
+            tempIncrease += 1;
+        }
+
+    }
+
+    void endGame()
+    {
+        SceneManager.LoadScene("EndScreen");
     }
 }

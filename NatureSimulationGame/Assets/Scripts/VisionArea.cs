@@ -5,24 +5,25 @@ using UnityEngine;
 public class VisionArea : MonoBehaviour
 {
 
-    Turtle turtleScript;
+    public AnimalBehavior animalScript;
     public SquareControl currentSquare;
-    // Start is called before the first frame update
+    public int maxHungerValue;
+
     void Start()
     {
-        turtleScript = GetComponentInParent<Turtle>();
+        //animalScript = GetComponentInParent<AnimalBehavior>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (turtleScript.movingToObject == true)
+        if (animalScript.movingToObject == true)
         {
             if (currentSquare != null)
             {
                 if (currentSquare.gameObject.tag != "WaterPlant")
                 {
-                    turtleScript.movingToObject = false;
+                    animalScript.movingToObject = false;
                 }
             }
         }
@@ -30,17 +31,17 @@ public class VisionArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (turtleScript.hungerLevel < 3)
+        if (animalScript.hungerLevel < maxHungerValue)
         {
             if (gameObject.name.Equals("VisionArea"))
             {
-                if (turtleScript.movingToObject == false)
+                if (animalScript.movingToObject == false)
                 {
                     if (other.gameObject.tag == "WaterPlant")
                     {
                         Debug.Log("vision collision");
                         currentSquare = other.gameObject.GetComponent<SquareControl>();
-                        turtleScript.moveToObject(other.transform.position);
+                        animalScript.moveToObject(other.transform.position);
                     }
                 }
             }
@@ -50,8 +51,8 @@ public class VisionArea : MonoBehaviour
                 {
                     Debug.Log("reach area collision");
                     other.gameObject.GetComponent<SquareControl>().eatPlant("plantDeath");
-                    turtleScript.hungerLevel += 1;
-                    turtleScript.movingToObject = false;
+                    animalScript.hungerLevel += 1;
+                    animalScript.movingToObject = false;
                 }
             }
         }

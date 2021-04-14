@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turtle : MonoBehaviour
+public class AnimalBehavior : MonoBehaviour
 {
+    public int animalNum;
+    public AnimalManager manager;
     public Rigidbody2D rb;
     public Animator animator;
     float faceDirection = 0;
@@ -22,6 +24,7 @@ public class Turtle : MonoBehaviour
 
     void Start()
     {
+        manager = GameObject.Find("AnimalManager").GetComponent<AnimalManager>();
         visionArea = transform.GetChild(0).gameObject;
         reachArea = transform.GetChild(1).gameObject;
         StartCoroutine(randomMovement());
@@ -98,11 +101,22 @@ public class Turtle : MonoBehaviour
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
         animator.SetFloat("FaceDirection", faceDirection);
+
+        if (hungerLevel < 0)
+        {
+            death();
+        }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    private void death()
+    {
+        manager.animals.Remove(gameObject);
+        Destroy(gameObject);
     }
 
     public void moveToObject(Vector2 objectPosition)

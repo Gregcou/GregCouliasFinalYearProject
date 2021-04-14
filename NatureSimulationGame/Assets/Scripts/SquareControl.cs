@@ -19,12 +19,11 @@ public class SquareControl : MonoBehaviour
     int dyingWaterPlantValue = 5;
     public Sprite[] sprites;
     public Animator animator;
-    float worldTime = 0.0f;
-    int temperature = 15;
+
 
     void Start()
     {
-        manager = GameObject.Find("Manager").GetComponent<GridManager>();
+        manager = GameObject.Find("SquareManager").GetComponent<GridManager>();
         gridSize = manager.gridSize;
         currentState = manager.squaresStates[squareNum];
 
@@ -55,16 +54,13 @@ public class SquareControl : MonoBehaviour
         }
 
         StartCoroutine(checkState());
-        StartCoroutine(increaseTemperature());
+        
 
     }
 
     void Update()
     {
-        worldTime += Time.deltaTime;
-        int seconds = (int)(worldTime % 60);
-        //Debug.Log("Time = " + seconds);
-        //Debug.Log("Temp = " + temperature);
+        
 
         for (int i = 0; i < neighbours.Count; i++)
         {
@@ -208,17 +204,7 @@ public class SquareControl : MonoBehaviour
         yield break;
     }
 
-    private IEnumerator increaseTemperature()
-    {
-        int tempIncrease = 1;
-        while (true)
-        {
-            yield return new WaitForSeconds(5);
-            temperature += tempIncrease;
-            tempIncrease += 1;
-        }
-        
-    }
+   
 
     private void findNeighbours()
     {
