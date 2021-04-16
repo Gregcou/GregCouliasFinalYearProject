@@ -17,8 +17,10 @@ public class SquareControl : MonoBehaviour
     int waterValue = 3;
     int waterPlantValue = 4;
     int dyingWaterPlantValue = 5;
+    int sunDialValue = 7;
     public Sprite[] sprites;
     public Animator animator;
+    int timeToAdd = 0;
 
 
     void Start()
@@ -31,9 +33,13 @@ public class SquareControl : MonoBehaviour
         {
             turnWater();
         }
-        else if (currentState == 4)
+        else if (currentState == waterPlantValue)
         {
             turnWaterPlant();
+        }
+        else if (currentState == sunDialValue)
+        {
+            turnSunDial();
         }
 
         findNeighbours();
@@ -67,6 +73,51 @@ public class SquareControl : MonoBehaviour
             neighboursStates[i] = manager.squaresStates[neighbours[i]];
         }
 
+        if (currentState == sunDialValue)
+        {
+            //Debug.Log(manager.daylength);
+            //Debug.Log(manager.daylength / 8);
+            //Debug.Log((manager.daylength / 8) * 2);
+            if (manager.worldTimeSeconds >= ((manager.daylength/8)) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 2) + timeToAdd)
+            {
+                sr.sprite = sprites[15];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 2) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 3) + timeToAdd)
+            {
+                sr.sprite = sprites[16];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 3) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 4) + timeToAdd)
+            {
+                sr.sprite = sprites[17];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 4) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 5) + timeToAdd)
+            {
+                sr.sprite = sprites[18];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 5) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 6) + timeToAdd)
+            {
+                sr.sprite = sprites[19];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 6) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 7) + timeToAdd)
+            {
+                sr.sprite = sprites[20];
+            }
+            else if (manager.worldTimeSeconds >= ((manager.daylength / 8) * 7) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 8) + timeToAdd)
+            {
+                sr.sprite = sprites[21];
+                
+            }
+            else if (manager.worldTimeSeconds >= manager.daylength + timeToAdd)
+            {
+                sr.sprite = sprites[14];
+                timeToAdd += manager.daylength;
+                Debug.Log(timeToAdd);
+                Debug.Log(manager.worldTimeSeconds);
+            }
+            
+
+
+        }
     }
 
     void turnOn()
@@ -115,6 +166,15 @@ public class SquareControl : MonoBehaviour
         manager.squaresStates[squareNum] = dyingWaterPlantValue;
     }
 
+    void turnSunDial()
+    {
+        currentState = sunDialValue;
+        //sr.color = new Color(0f, 0f, 0f, 1f);
+        animator.enabled = false;
+        sr.sprite = sprites[14];
+        manager.squaresStates[squareNum] = sunDialValue;
+    }
+
     public void eatPlant(string coroutineName)
     {
         StopCoroutine(coroutineName);
@@ -128,7 +188,7 @@ public class SquareControl : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             neighboursStateTotal = 0;
-            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue)
+            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue)
             {
                 for (int i = 0; i < neighbours.Count; i++)
                 {
@@ -167,7 +227,6 @@ public class SquareControl : MonoBehaviour
             if (currentState == waterPlantValue)
             {
                 int numOfGrass = 0;
-                Debug.Log("waterplant");
                 for (int i = 0; i < neighbours.Count; i++)
                 {
                     if (neighboursStates[i] == 1)
@@ -177,7 +236,6 @@ public class SquareControl : MonoBehaviour
                 }
                 if (numOfGrass >= 2)
                 {
-                    Debug.Log(">2 ");
                     animator.SetInteger("SquareState", 6);
                 }
                 else

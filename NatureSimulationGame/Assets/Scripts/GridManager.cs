@@ -11,7 +11,9 @@ public class GridManager : MonoBehaviour
     public int listLength;
     public int[] squaresStates;
     public float timeScale;
-    float worldTime = 0.0f;
+    public float worldTime = 0.0f;
+    public int worldTimeSeconds;
+    public int daylength;
     int temperature = 15;
 
     void Start()
@@ -57,16 +59,18 @@ public class GridManager : MonoBehaviour
         squaresStates[gridSize * 8 + 17] = 4;
         squaresStates[30] = 1;
 
+        squaresStates[10] = 7;
+
     }
 
     void Update()
     {
         worldTime += Time.deltaTime;
-        int seconds = (int)(worldTime % 60);
-        //Debug.Log("Time = " + seconds);
-        //Debug.Log("Temp = " + temperature);
+        worldTimeSeconds = (int)(worldTime % 60);
+        //Debug.Log("Time = " + worldTimeSeconds);
+        //Debug.Log("worldtime = " + worldTime);
 
-        if (seconds == 20)
+        if (worldTimeSeconds == daylength * 3)
         {
             endGame();
         }

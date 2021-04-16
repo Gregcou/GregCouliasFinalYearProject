@@ -306,6 +306,9 @@ MonoBehaviour:
   listLength: 0
   squaresStates: 
   timeScale: 1
+  worldTime: 0
+  worldTimeSeconds: 0
+  daylength: 10
 --- !u!4 &1225205194
 Transform:
   m_ObjectHideFlags: 0
