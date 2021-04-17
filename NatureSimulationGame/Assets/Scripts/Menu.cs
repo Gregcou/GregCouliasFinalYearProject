@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
 
+    public Text endGameInfo;
+
 	// Use this for initialization
-	void Start () {
-		
-	}
+	void Start ()
+    {
+        if (endGameInfo != null)
+        {
+            endGameInfo.text = "Surviving Animals = " + PlayerPrefs.GetInt("AnimalsAmount").ToString();
+            endGameInfo.text += "\n Surviving Plants = " + PlayerPrefs.GetInt("PlantAmount").ToString();
+        }
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {

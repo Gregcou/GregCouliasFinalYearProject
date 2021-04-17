@@ -18,9 +18,12 @@ public class SquareControl : MonoBehaviour
     int waterPlantValue = 4;
     int dyingWaterPlantValue = 5;
     int sunDialValue = 7;
+    int standaloneBushValue = 8;
     public Sprite[] sprites;
     public Animator animator;
     int timeToAdd = 0;
+    public CircleCollider2D bushCollider;
+    public PolygonCollider2D sundDialCollider;
 
 
     void Start()
@@ -40,6 +43,10 @@ public class SquareControl : MonoBehaviour
         else if (currentState == sunDialValue)
         {
             turnSunDial();
+        }
+        else if (currentState == standaloneBushValue)
+        {
+            turnStandaloneBush();
         }
 
         findNeighbours();
@@ -172,7 +179,17 @@ public class SquareControl : MonoBehaviour
         //sr.color = new Color(0f, 0f, 0f, 1f);
         animator.enabled = false;
         sr.sprite = sprites[14];
+        sundDialCollider.enabled = true;
         manager.squaresStates[squareNum] = sunDialValue;
+    }
+
+    void turnStandaloneBush()
+    {
+        currentState = standaloneBushValue;
+        //sr.color = new Color(0f, 0f, 0f, 1f);
+        animator.SetInteger("SquareState", 8);
+        bushCollider.enabled = true;
+        manager.squaresStates[squareNum] = standaloneBushValue;
     }
 
     public void eatPlant(string coroutineName)
@@ -188,7 +205,7 @@ public class SquareControl : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             neighboursStateTotal = 0;
-            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue)
+            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue && currentState != standaloneBushValue)
             {
                 for (int i = 0; i < neighbours.Count; i++)
                 {

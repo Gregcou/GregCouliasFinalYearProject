@@ -15,6 +15,7 @@ public class GridManager : MonoBehaviour
     public int worldTimeSeconds;
     public int daylength;
     int temperature = 15;
+    public AnimalManager animalManager;
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class GridManager : MonoBehaviour
         squaresStates[30] = 1;
 
         squaresStates[10] = 7;
+        squaresStates[50] = 8;
 
     }
 
@@ -90,6 +92,16 @@ public class GridManager : MonoBehaviour
 
     void endGame()
     {
+        int amountOfPlants = 0;
+        for (int i=0;i<squaresStates.Length;i++)
+        {
+            if (squaresStates[i] == 4 || squaresStates[i] == 5)
+            {
+                amountOfPlants++;
+            }
+        }
+        PlayerPrefs.SetInt("AnimalsAmount", animalManager.animals.Count);
+        PlayerPrefs.SetInt("PlantAmount", amountOfPlants);
         SceneManager.LoadScene("EndScreen");
     }
 }

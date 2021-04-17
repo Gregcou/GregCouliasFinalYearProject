@@ -249,7 +249,7 @@ MonoBehaviour:
   randomDelay: 3
   movingToObject: 0
   positionToMoveTo: {x: 0, y: 0}
-  hungerLevel: 1
+  hungerLevel: 3
 --- !u!1 &7166105018576253679
 GameObject:
   m_ObjectHideFlags: 0
