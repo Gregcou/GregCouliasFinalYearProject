@@ -19,11 +19,13 @@ public class SquareControl : MonoBehaviour
     int dyingWaterPlantValue = 5;
     int sunDialValue = 7;
     int standaloneBushValue = 8;
+    int edgeBushValue = 9;
     public Sprite[] sprites;
     public Animator animator;
     int timeToAdd = 0;
     public CircleCollider2D bushCollider;
     public PolygonCollider2D sundDialCollider;
+    public CapsuleCollider2D edgeBushCollider;
 
 
     void Start()
@@ -47,6 +49,10 @@ public class SquareControl : MonoBehaviour
         else if (currentState == standaloneBushValue)
         {
             turnStandaloneBush();
+        }
+        else if (currentState == edgeBushValue)
+        {
+            turnEdgeBush();
         }
 
         findNeighbours();
@@ -130,7 +136,6 @@ public class SquareControl : MonoBehaviour
     void turnOn()
     {
         currentState = 1;
-        //sr.color = new Color(0f, 0f, 0f, 1f);
         animator.SetInteger("SquareState", 1);
         //sr.sprite = sprites[6];
         manager.squaresStates[squareNum] = 1;
@@ -139,7 +144,6 @@ public class SquareControl : MonoBehaviour
     void turnOff()
     {
         currentState = 0;
-        //sr.color = new Color(255f, 255f, 255f, 1f);
         animator.SetInteger("SquareState", 0);
         //sr.sprite = sprites[4];
         manager.squaresStates[squareNum] = 0;
@@ -148,7 +152,6 @@ public class SquareControl : MonoBehaviour
     void turnWater()
     {
         currentState = waterValue;
-        //sr.color = new Color(0f, 0f, 255f, 1f);
         animator.SetInteger("SquareState", 3);
         //sr.sprite = sprites[0];
         manager.squaresStates[squareNum] = waterValue;
@@ -157,7 +160,6 @@ public class SquareControl : MonoBehaviour
     void turnWaterPlant()
     {
         currentState = waterPlantValue;
-        //sr.color = new Color(0f, 255f, 0f, 1f);
         animator.SetInteger("SquareState", 4);
         //sr.sprite = sprites[9];
         manager.squaresStates[squareNum] = waterPlantValue;
@@ -169,14 +171,12 @@ public class SquareControl : MonoBehaviour
     {
         Debug.Log("TurnDyingPlant");
         currentState = dyingWaterPlantValue;
-        //sr.color = new Color(0f, 255f, 0f, 1f);
         manager.squaresStates[squareNum] = dyingWaterPlantValue;
     }
 
     void turnSunDial()
     {
         currentState = sunDialValue;
-        //sr.color = new Color(0f, 0f, 0f, 1f);
         animator.enabled = false;
         sr.sprite = sprites[14];
         sundDialCollider.enabled = true;
@@ -186,10 +186,87 @@ public class SquareControl : MonoBehaviour
     void turnStandaloneBush()
     {
         currentState = standaloneBushValue;
-        //sr.color = new Color(0f, 0f, 0f, 1f);
         animator.SetInteger("SquareState", 8);
         bushCollider.enabled = true;
         manager.squaresStates[squareNum] = standaloneBushValue;
+    }
+
+    void turnEdgeBush()
+    {
+        currentState = edgeBushValue;
+        animator.enabled = false;
+        edgeBushCollider.enabled = true;
+        if (squareNum == 0)
+        {
+            sr.sprite = sprites[33];
+        }
+        else if (squareNum == gridSize-1)
+        {
+            sr.sprite = sprites[34];
+        }
+        else if (squareNum == Mathf.Pow(gridSize, 2) - gridSize)
+        {
+            sr.sprite = sprites[35];
+        }
+        else if (squareNum == Mathf.Pow(gridSize, 2) - 1)
+        {
+            sr.sprite = sprites[36];
+        }
+        else if (squareNum < gridSize)
+        {
+            if (Random.Range(0,2) == 0)
+            {
+                sr.sprite = sprites[24];
+            }
+            else
+            {
+                sr.sprite = sprites[25];
+            }
+            edgeBushCollider.offset = new Vector2(0,0.2f);
+        }
+        else if (squareNum % gridSize == 0)
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                sr.sprite = sprites[26];
+            }
+            else
+            {
+                sr.sprite = sprites[27];
+            }
+            edgeBushCollider.direction = 0;
+            edgeBushCollider.offset = new Vector2(-0.2f, 0);
+            edgeBushCollider.size = new Vector2(0.6f, 1);
+        }
+        else if ((squareNum + 1) % gridSize == 0)
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                sr.sprite = sprites[28];
+            }
+            else
+            {
+                sr.sprite = sprites[29];
+            }
+            edgeBushCollider.direction = 0;
+            edgeBushCollider.offset = new Vector2(0.2f, 0);
+            edgeBushCollider.size = new Vector2(0.6f, 1);
+        }
+        else if (squareNum >= Mathf.Pow(gridSize, 2) - gridSize)
+        {
+            if (Random.Range(0, 2) == 0)
+            {
+                sr.sprite = sprites[22];
+            }
+            else
+            {
+                sr.sprite = sprites[23];
+            }
+            edgeBushCollider.offset = new Vector2(0, -0.2f);
+        }
+        
+        
+        manager.squaresStates[squareNum] = edgeBushValue;
     }
 
     public void eatPlant(string coroutineName)
@@ -260,6 +337,18 @@ public class SquareControl : MonoBehaviour
                     animator.SetInteger("SquareState", 4);
                 }
             }
+
+            if (currentState == waterValue)
+            {
+                if (manager.temperature > 18)
+                for (int i = 0; i < neighbours.Count; i++)
+                {
+                    if (neighboursStates[i] == 0 || neighboursStates[i] == 1)
+                    {
+                        turnOff();
+                    }
+                }
+            }
             
 
             
@@ -283,6 +372,7 @@ public class SquareControl : MonoBehaviour
 
     private void findNeighbours()
     {
+        // top row
         if (!(squareNum < gridSize))
         {
             if (squareNum % gridSize != 0)
@@ -296,17 +386,19 @@ public class SquareControl : MonoBehaviour
             }
         }
 
+        // left side
         if (squareNum % gridSize != 0)
         {
             neighbours.Add(squareNum - 1);
         }
 
+        // right side
         if ((squareNum + 1) % gridSize != 0)
         {
             neighbours.Add(squareNum + 1);
         }
 
-
+        // bottom row squares
         if (!(squareNum >= Mathf.Pow(gridSize, 2) - gridSize))
         {
             if (squareNum % gridSize != 0)

@@ -101,6 +101,18 @@ TextureImporter:
   - first:
       213: -8476384629694487774
     second: MiscSpriteSheet_32
+  - first:
+      213: 155542029492772564
+    second: MiscSpriteSheet_33
+  - first:
+      213: 7142544216725222010
+    second: MiscSpriteSheet_34
+  - first:
+      213: -3983362536218583225
+    second: MiscSpriteSheet_35
+  - first:
+      213: -2608573792876980603
+    second: MiscSpriteSheet_36
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -194,7 +206,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -215,7 +227,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -236,7 +248,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -257,7 +269,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 103
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -278,7 +290,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 137
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -299,7 +311,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 171
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -320,7 +332,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -341,7 +353,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -362,7 +374,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -383,7 +395,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 103
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -404,7 +416,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 137
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -425,7 +437,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 137
+        y: 171
         width: 32
         height: 32
       alignment: 0
@@ -446,7 +458,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -467,7 +479,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -488,7 +500,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -509,7 +521,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 103
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -530,7 +542,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 137
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -551,7 +563,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 103
+        y: 137
         width: 32
         height: 32
       alignment: 0
@@ -572,7 +584,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -593,7 +605,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -614,7 +626,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -635,7 +647,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 103
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -656,7 +668,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 137
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -677,7 +689,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 69
+        y: 103
         width: 32
         height: 32
       alignment: 0
@@ -698,7 +710,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -719,7 +731,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -740,7 +752,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -761,7 +773,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 103
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -782,7 +794,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 137
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -803,7 +815,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 171
-        y: 35
+        y: 69
         width: 32
         height: 32
       alignment: 0
@@ -824,7 +836,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1
-        y: 1
+        y: 35
         width: 32
         height: 32
       alignment: 0
@@ -845,7 +857,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 35
-        y: 1
+        y: 35
         width: 32
         height: 32
       alignment: 0
@@ -866,7 +878,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 69
-        y: 1
+        y: 35
         width: 32
         height: 32
       alignment: 0
@@ -878,6 +890,90 @@ TextureImporter:
       bones: []
       spriteID: 223aa7fc615dd5a80800000000000000
       internalID: -8476384629694487774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscSpriteSheet_33
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 35
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de5f87d6a8982200800000000000000
+      internalID: 155542029492772564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscSpriteSheet_34
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 35
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a727d6e4f1a6f1360800000000000000
+      internalID: 7142544216725222010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscSpriteSheet_35
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 35
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74f9719c0e048b8c0800000000000000
+      internalID: -3983362536218583225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscSpriteSheet_36
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 1
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5869c29c4fb7ccbd0800000000000000
+      internalID: -2608573792876980603
       vertices: []
       indices: 
       edges: []

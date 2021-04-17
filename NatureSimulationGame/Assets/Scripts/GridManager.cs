@@ -14,7 +14,7 @@ public class GridManager : MonoBehaviour
     public float worldTime = 0.0f;
     public int worldTimeSeconds;
     public int daylength;
-    int temperature = 15;
+    public int temperature = 15;
     public AnimalManager animalManager;
 
     void Start()
@@ -38,17 +38,39 @@ public class GridManager : MonoBehaviour
 
         StartCoroutine(increaseTemperature());
 
+        for (int i=0;i<squaresStates.Length;i++)
+        {
+            //top row squares
+            if (i <= gridSize)
+            {
+                squaresStates[i] = 9;
+            }
 
-        squaresStates[Random.Range(0,listLength)] = 1;
-        squaresStates[Random.Range(0, listLength)] = 1;
-        squaresStates[Random.Range(0, listLength)] = 1;
-        squaresStates[Random.Range(0, listLength)] = 1;
-        squaresStates[Random.Range(0, listLength)] = 1;
-        squaresStates[17] = 1;
-        squaresStates[18] = 1;
+            // left side
+            if (i % gridSize == 0)
+            {
+                squaresStates[i] = 9;
+            }
+
+            // right side
+            if ((i + 1) % gridSize == 0)
+            {
+                squaresStates[i] = 9;
+            }
+
+            // bottom row squares
+            if (i >= Mathf.Pow(gridSize, 2) - gridSize)
+            {
+                squaresStates[i] = 9;
+            }
+        }
+
+
+
         squaresStates[27] = 1;
         squaresStates[28] = 1;
         squaresStates[30] = 1;
+
         for (int i=0;i<15;i++)
         {
             squaresStates[14 + (gridSize * i)] = 3;
@@ -60,8 +82,8 @@ public class GridManager : MonoBehaviour
         squaresStates[gridSize * 8 + 17] = 4;
         squaresStates[30] = 1;
 
-        squaresStates[10] = 7;
-        squaresStates[50] = 8;
+        squaresStates[50] = 7;
+        squaresStates[85] = 8;
 
     }
 

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4571040420320177717}
   - component: {fileID: 4629831525148106459}
   - component: {fileID: 992733934506910134}
+  - component: {fileID: -8269061752852535758}
   m_Layer: 0
   m_Name: Square
   m_TagString: Square
@@ -140,9 +141,16 @@ MonoBehaviour:
   - {fileID: 8089771533957519514, guid: 82176d251c71a0549b6e298459576182, type: 3}
   - {fileID: -3509966428670100119, guid: 82176d251c71a0549b6e298459576182, type: 3}
   - {fileID: -771713567445450545, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: -2911489629449916120, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: -8476384629694487774, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: 155542029492772564, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: 7142544216725222010, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: -3983362536218583225, guid: 82176d251c71a0549b6e298459576182, type: 3}
+  - {fileID: -2608573792876980603, guid: 82176d251c71a0549b6e298459576182, type: 3}
   animator: {fileID: 4571040420320177717}
   bushCollider: {fileID: 992733934506910134}
   sundDialCollider: {fileID: 4629831525148106459}
+  edgeBushCollider: {fileID: -8269061752852535758}
 --- !u!61 &-1491491690884165597
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -239,3 +247,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.45
+--- !u!70 &-8269061752852535758
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940914997624446215}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.00000002557087, y: 0.21450403}
+  m_Size: {x: 0.976616, y: 0.54761297}
+  m_Direction: 1

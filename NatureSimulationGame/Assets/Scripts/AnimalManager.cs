@@ -12,7 +12,7 @@ public class AnimalManager : MonoBehaviour
         int counter = 0;
         for (int i = 0; i < 2; i++)
         {
-            animals.Add(Instantiate(turtlePrefab, new Vector3(0, -0, 0), Quaternion.identity));
+            animals.Add(Instantiate(turtlePrefab, new Vector3(i+5, -10, 0), Quaternion.identity));
             animals[counter].GetComponent<AnimalBehavior>().animalNum = counter;
             counter++;
         }

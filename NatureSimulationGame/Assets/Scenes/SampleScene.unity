@@ -309,6 +309,7 @@ MonoBehaviour:
   worldTime: 0
   worldTimeSeconds: 0
   daylength: 10
+  temperature: 15
   animalManager: {fileID: 924012301}
 --- !u!4 &1225205194
 Transform:
@@ -486,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1255854633}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.11, y: -4.66, z: -4.05426}
+  m_LocalPosition: {x: 22.28, y: -4.72, z: -4.05426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}
