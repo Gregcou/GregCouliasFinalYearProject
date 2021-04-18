@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalScript: {fileID: 7166105017300738317}
   currentSquare: {fileID: 0}
-  maxHungerValue: 0
+  maxHungerValue: 3
 --- !u!1 &7166105017300738308
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,9 +87,10 @@ GameObject:
   - component: {fileID: 7166105017300738310}
   - component: {fileID: 7166105017300738311}
   - component: {fileID: 7166105017300738317}
+  - component: {fileID: 3521818942063448667}
   m_Layer: 0
   m_Name: Turtle
-  m_TagString: Untagged
+  m_TagString: Turtle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -149,7 +150,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 241312498282336622, guid: 44842dd7f3ed9bd4fb30c199078e993b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -198,7 +199,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &7166105017300738311
@@ -249,7 +250,20 @@ MonoBehaviour:
   randomDelay: 3
   movingToObject: 0
   positionToMoveTo: {x: 0, y: 0}
-  hungerLevel: 3
+  hungerLevel: 2
+--- !u!114 &3521818942063448667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7166105017300738308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86cc5ac3afc565945b13bfcac94f8829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickedUp: 0
 --- !u!1 &7166105018576253679
 GameObject:
   m_ObjectHideFlags: 0

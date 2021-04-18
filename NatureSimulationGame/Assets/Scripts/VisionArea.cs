@@ -29,7 +29,7 @@ public class VisionArea : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (animalScript.hungerLevel < maxHungerValue)
         {
@@ -45,7 +45,14 @@ public class VisionArea : MonoBehaviour
                     }
                 }
             }
-            else if (gameObject.name.Equals("ReachArea"))
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (animalScript.hungerLevel < maxHungerValue)
+        {
+            if (gameObject.name.Equals("ReachArea"))
             {
                 if (other.gameObject.tag == "WaterPlant")
                 {
@@ -58,5 +65,6 @@ public class VisionArea : MonoBehaviour
         }
     }
 
-    
+
+
 }

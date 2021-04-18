@@ -23,6 +23,7 @@ public class SquareControl : MonoBehaviour
     public Sprite[] sprites;
     public Animator animator;
     int timeToAdd = 0;
+    public int WaterPlantLifeLength;
     public CircleCollider2D bushCollider;
     public PolygonCollider2D sundDialCollider;
     public CapsuleCollider2D edgeBushCollider;
@@ -360,7 +361,7 @@ public class SquareControl : MonoBehaviour
 
     private IEnumerator plantDeath()
     {
-        yield return new WaitForSeconds(30);
+        yield return new WaitForSeconds(WaterPlantLifeLength);
         turnDyingWaterPlant();
         yield return new WaitForSeconds(2);
         turnOff();
