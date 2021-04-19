@@ -8,6 +8,7 @@ public class AnimalBehavior : MonoBehaviour
     public AnimalManager manager;
     public Rigidbody2D rb;
     public Animator animator;
+    BoxCollider2D boxCollider;
     float faceDirection = 0;
 
     public float moveSpeed;
@@ -22,13 +23,18 @@ public class AnimalBehavior : MonoBehaviour
     GameObject reachArea;
     public int hungerLevel = 1;
 
+    public int growthStage = 0;
+    public bool canHaveChild = false;
+
     void Start()
     {
         manager = GameObject.Find("AnimalManager").GetComponent<AnimalManager>();
+        boxCollider = GetComponentInParent<BoxCollider2D>();
         visionArea = transform.GetChild(0).gameObject;
         reachArea = transform.GetChild(1).gameObject;
         StartCoroutine(randomMovement());
         StartCoroutine(decreaseHunger());
+        StartCoroutine(growUp());
     }
 
     // Update is called once per frame
@@ -77,24 +83,28 @@ public class AnimalBehavior : MonoBehaviour
             faceDirection = 3;
             visionArea.transform.localPosition = new Vector3(3.5f, 0, 0);
             reachArea.transform.localPosition = new Vector3(0.5f, 0, 0);
+            boxCollider.size = new Vector2(0.96875f, 0.6875f);
         }
         else if (movement.x < 0)
         {
             faceDirection = 2;
             visionArea.transform.localPosition = new Vector3(-3.5f, 0, 0);
             reachArea.transform.localPosition = new Vector3(-0.5f, 0, 0);
+            boxCollider.size = new Vector2(0.96875f, 0.6875f);
         }
         else if (movement.y > 0)
         {
             faceDirection = 1;
             visionArea.transform.localPosition = new Vector3(0, 3.5f, 0);
             reachArea.transform.localPosition = new Vector3(0, 0.5f, 0);
+            boxCollider.size = new Vector2(0.6875f, 0.96875f);
         }
         else if (movement.y < 0)
         {
             faceDirection = 0;
             visionArea.transform.localPosition = new Vector3(0, -3.5f, 0);
             reachArea.transform.localPosition = new Vector3(0, -0.5f, 0);
+            boxCollider.size = new Vector2(0.6875f, 0.96875f);
         }
 
         animator.SetFloat("Horizontal", movement.x);
@@ -106,12 +116,26 @@ public class AnimalBehavior : MonoBehaviour
         {
             death();
         }
+
+        if (growthStage == 0)
+        {
+            transform.localScale = new Vector3(0.5f, 0.5f, 1);
+        }
+        else if (growthStage == 1)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+        else if (growthStage == 2)
+        {
+            transform.localScale = new Vector3(1.5f, 1.5f, 1);
+        }
     }
 
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
+
 
     private void death()
     {
@@ -123,6 +147,12 @@ public class AnimalBehavior : MonoBehaviour
     {
         movingToObject = true;
         positionToMoveTo = objectPosition;
+    }
+
+    public void haveChild()
+    {
+        manager.haveChild(transform.position);
+        canHaveChild = false;
     }
 
     private IEnumerator randomMovement()
@@ -160,12 +190,27 @@ public class AnimalBehavior : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(20);
+            yield return new WaitForSeconds(40);
             if (hungerLevel >= 0)
             {
                 hungerLevel -= 1;
             }
 
         }
+    }
+
+    private IEnumerator growUp()
+    {
+        if (growthStage == 0)
+        {
+            yield return new WaitForSeconds(10);
+            growthStage = 1;
+        }
+        yield return new WaitForSeconds(10);
+        growthStage = 2;
+        //yield return new WaitForSeconds(15);
+        canHaveChild = true;
+        yield return new WaitForSeconds(60);
+        death();
     }
 }

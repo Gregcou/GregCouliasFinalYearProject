@@ -14,6 +14,7 @@ public class AnimalManager : MonoBehaviour
         {
             animals.Add(Instantiate(turtlePrefab, new Vector3(i+5, -10, 0), Quaternion.identity));
             animals[counter].GetComponent<AnimalBehavior>().animalNum = counter;
+            animals[counter].GetComponent<AnimalBehavior>().growthStage = 1;
             counter++;
         }
     }
@@ -22,5 +23,11 @@ public class AnimalManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void haveChild(Vector3 animalPosition)
+    {
+        animals.Add(Instantiate(turtlePrefab, animalPosition, Quaternion.identity));
+        animals[animals.Count-1].GetComponent<AnimalBehavior>().animalNum = animals.Count-1;
     }
 }

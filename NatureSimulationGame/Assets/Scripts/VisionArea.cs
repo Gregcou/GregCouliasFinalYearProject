@@ -7,7 +7,9 @@ public class VisionArea : MonoBehaviour
 
     public AnimalBehavior animalScript;
     public SquareControl currentSquare;
+    public GameObject currentAnimal;
     public int maxHungerValue;
+    bool movingToPlant;
 
     void Start()
     {
@@ -17,52 +19,84 @@ public class VisionArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animalScript.movingToObject == true)
+        if (animalScript.movingToObject == true && gameObject.name.Equals("VisionArea"))
         {
             if (currentSquare != null)
             {
-                if (currentSquare.gameObject.tag != "WaterPlant")
+                Debug.Log("Current square != null");
+                if (movingToPlant == true)
                 {
-                    animalScript.movingToObject = false;
+                    if (currentSquare.gameObject.tag != "WaterPlant")
+                    {
+                        animalScript.movingToObject = false;
+                        movingToPlant = false;
+                    }
                 }
+            }
+            else if (currentAnimal == null)
+            {
+                Debug.Log("Turn off moving towards animal is null");
+                animalScript.movingToObject = false;
             }
         }
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (animalScript.hungerLevel < maxHungerValue)
+        if (gameObject.name.Equals("VisionArea"))
         {
-            if (gameObject.name.Equals("VisionArea"))
+            if (animalScript.movingToObject == false)
             {
-                if (animalScript.movingToObject == false)
+                if (other.gameObject.tag == "WaterPlant")
                 {
-                    if (other.gameObject.tag == "WaterPlant")
+                    if (animalScript.hungerLevel < maxHungerValue)
                     {
                         Debug.Log("vision collision");
                         currentSquare = other.gameObject.GetComponent<SquareControl>();
+                        animalScript.moveToObject(other.transform.position);
+                        movingToPlant = true;
+                    }
+                }
+                else if (other.gameObject.tag == "Turtle")
+                {
+                    if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
+                    {
+                        Debug.Log("other turtle collision");
+                        currentAnimal = other.gameObject;
                         animalScript.moveToObject(other.transform.position);
                     }
                 }
             }
         }
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (animalScript.hungerLevel < maxHungerValue)
+        if (gameObject.name.Equals("ReachArea"))
         {
-            if (gameObject.name.Equals("ReachArea"))
+            if (other.gameObject.tag == "WaterPlant")
             {
-                if (other.gameObject.tag == "WaterPlant")
+                if (animalScript.hungerLevel < maxHungerValue)
                 {
                     Debug.Log("reach area collision");
                     other.gameObject.GetComponent<SquareControl>().eatPlant("plantDeath");
                     animalScript.hungerLevel += 1;
                     animalScript.movingToObject = false;
+                    movingToPlant = false;
+                }
+            }
+            else if (other.gameObject.tag == "Turtle")
+            {
+                if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
+                {
+                    Debug.Log("other turtle reach area collision");
+                    animalScript.haveChild();
+                    animalScript.movingToObject = false;
                 }
             }
         }
+        
     }
 
 
