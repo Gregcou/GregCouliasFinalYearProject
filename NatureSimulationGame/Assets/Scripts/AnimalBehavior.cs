@@ -25,6 +25,7 @@ public class AnimalBehavior : MonoBehaviour
 
     public int growthStage = 0;
     public bool canHaveChild = false;
+    public bool beingMovedTowards = false;
 
     void Start()
     {

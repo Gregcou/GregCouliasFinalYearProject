@@ -23,20 +23,22 @@ public class VisionArea : MonoBehaviour
         {
             if (currentSquare != null)
             {
-                Debug.Log("Current square != null");
+               
                 if (movingToPlant == true)
                 {
                     if (currentSquare.gameObject.tag != "WaterPlant")
                     {
+                        Debug.Log("Current square != null");
                         animalScript.movingToObject = false;
                         movingToPlant = false;
                     }
                 }
             }
-            else if (currentAnimal == null)
+            else if (currentAnimal == null || currentAnimal.GetComponent<AnimalBehavior>().canHaveChild == false)
             {
                 Debug.Log("Turn off moving towards animal is null");
                 animalScript.movingToObject = false;
+                currentAnimal.GetComponent<AnimalBehavior>().beingMovedTowards = false;
             }
         }
     }
@@ -59,11 +61,13 @@ public class VisionArea : MonoBehaviour
                 }
                 else if (other.gameObject.tag == "Turtle")
                 {
-                    if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
+                    if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true && animalScript.beingMovedTowards == false)
                     {
+                        other.GetComponent<AnimalBehavior>().beingMovedTowards = true;
                         Debug.Log("other turtle collision");
                         currentAnimal = other.gameObject;
                         animalScript.moveToObject(other.transform.position);
+                        other.GetComponent<AnimalBehavior>().moveSpeed = 0;
                     }
                 }
             }
@@ -91,8 +95,11 @@ public class VisionArea : MonoBehaviour
                 if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
                 {
                     Debug.Log("other turtle reach area collision");
+                    other.GetComponent<AnimalBehavior>().beingMovedTowards = false;
                     animalScript.haveChild();
+                    other.GetComponent<AnimalBehavior>().canHaveChild = false;
                     animalScript.movingToObject = false;
+                    other.GetComponent<AnimalBehavior>().moveSpeed = 0.5f;
                 }
             }
         }
