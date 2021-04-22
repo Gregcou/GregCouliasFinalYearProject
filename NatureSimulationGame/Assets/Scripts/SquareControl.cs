@@ -20,6 +20,7 @@ public class SquareControl : MonoBehaviour
     int sunDialValue = 7;
     int standaloneBushValue = 8;
     int edgeBushValue = 9;
+    int cattleGridValue = 10;
     public Sprite[] sprites;
     public Animator animator;
     int timeToAdd = 0;
@@ -54,6 +55,10 @@ public class SquareControl : MonoBehaviour
         else if (currentState == edgeBushValue)
         {
             turnEdgeBush();
+        }
+        else if (currentState == cattleGridValue)
+        {
+            turnCattleGrid();
         }
 
         findNeighbours();
@@ -268,6 +273,16 @@ public class SquareControl : MonoBehaviour
         
         
         manager.squaresStates[squareNum] = edgeBushValue;
+    }
+
+    void turnCattleGrid()
+    {
+        currentState = cattleGridValue;
+        animator.enabled = false;
+        sr.sprite = sprites[37];
+        GetComponentInParent<BoxCollider2D>().isTrigger = false;
+        gameObject.layer = 8;
+        manager.squaresStates[squareNum] = cattleGridValue;
     }
 
     public void eatPlant(string coroutineName)

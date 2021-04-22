@@ -84,6 +84,7 @@ public class GridManager : MonoBehaviour
 
         squaresStates[50] = 7;
         squaresStates[85] = 8;
+        squaresStates[105] = 10;
 
     }
 

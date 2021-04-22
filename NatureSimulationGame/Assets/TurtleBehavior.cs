@@ -10,6 +10,8 @@ public class TurtleBehavior : MonoBehaviour
     Player playerScript;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    public GameObject visionArea;
+    public GameObject reachArea;
     void Start()
     {
         animalBehavior = GetComponentInParent<AnimalBehavior>();
@@ -51,9 +53,10 @@ public class TurtleBehavior : MonoBehaviour
         pickedUp = true;
         this.playerTransform = playerTransform;
         this.playerScript = playerScript;
-        animalBehavior.enabled = false;
-        //gameObject.GetComponent<Rigidbody2D>().isKinematic = true;
-        //gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        animalBehavior.moveable = false;
+        gameObject.tag = "PickedUp";
+        visionArea.SetActive(false);
+        reachArea.SetActive(false);
         gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
         animator.SetBool("PickedUp", true);
     }
@@ -61,9 +64,10 @@ public class TurtleBehavior : MonoBehaviour
     public void pickedUpStop()
     {
         pickedUp = false;
-        animalBehavior.enabled = true;
-        //gameObject.GetComponent<Rigidbody2D>().isKinematic = false;
-        //gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        animalBehavior.moveable = true;
+        gameObject.tag = "Turtle";
+        visionArea.SetActive(true);
+        reachArea.SetActive(true);
         gameObject.GetComponent<BoxCollider2D>().isTrigger = false;
         animator.SetBool("PickedUp", false);
     }

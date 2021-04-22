@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
         animator.SetFloat("Speed", movement.sqrMagnitude);
         animator.SetFloat("FaceDirection", faceDirection);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             animator.SetBool("Cast", true);
             moveSpeed = 0;
@@ -66,12 +66,12 @@ public class Player : MonoBehaviour
             moveSpeed = 5;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             pickUp = true;
         }
 
-        if (Input.GetKeyUp(KeyCode.R))
+        if (Input.GetKeyUp(KeyCode.Space))
         {
             pickUp = false;
         }
@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.tag == "Turtle")
+        if (other.gameObject.tag == "PickedUp")
         {
             Debug.Log("turtle trigger");
             if (drop == true)

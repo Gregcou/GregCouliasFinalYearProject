@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalScript: {fileID: 7166105017300738317}
   currentSquare: {fileID: 0}
+  currentAnimal: {fileID: 0}
   maxHungerValue: 3
 --- !u!1 &7166105017300738308
 GameObject:
@@ -88,7 +89,7 @@ GameObject:
   - component: {fileID: 7166105017300738311}
   - component: {fileID: 7166105017300738317}
   - component: {fileID: 3521818942063448667}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Turtle
   m_TagString: Turtle
   m_Icon: {fileID: 0}
@@ -251,6 +252,9 @@ MonoBehaviour:
   movingToObject: 0
   positionToMoveTo: {x: 0, y: 0}
   hungerLevel: 2
+  growthStage: 0
+  canHaveChild: 0
+  beingMovedTowards: 0
 --- !u!114 &3521818942063448667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,6 +268,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickedUp: 0
+  visionArea: {fileID: 7166105018576253679}
+  reachArea: {fileID: 7166105017039258317}
 --- !u!1 &7166105018576253679
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,4 +342,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animalScript: {fileID: 7166105017300738317}
   currentSquare: {fileID: 0}
+  currentAnimal: {fileID: 0}
   maxHungerValue: 3
