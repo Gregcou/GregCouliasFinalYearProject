@@ -21,6 +21,7 @@ public class SquareControl : MonoBehaviour
     int standaloneBushValue = 8;
     int edgeBushValue = 9;
     int cattleGridValue = 10;
+    int doorValue = 11;
     public Sprite[] sprites;
     public Animator animator;
     int timeToAdd = 0;
@@ -28,13 +29,22 @@ public class SquareControl : MonoBehaviour
     public CircleCollider2D bushCollider;
     public PolygonCollider2D sundDialCollider;
     public CapsuleCollider2D edgeBushCollider;
+    public bool inSecondArea = false;
 
 
     void Start()
     {
         manager = GameObject.Find("SquareManager").GetComponent<GridManager>();
         gridSize = manager.gridSize;
-        currentState = manager.squaresStates[squareNum];
+        if (inSecondArea == false)
+        {
+            currentState = manager.squaresStates[squareNum];
+        }
+        else if (inSecondArea == true)
+        {
+            currentState = manager.squaresStatesArea2[squareNum];
+        }
+
 
         if (currentState == waterValue)
         {
@@ -60,20 +70,33 @@ public class SquareControl : MonoBehaviour
         {
             turnCattleGrid();
         }
+        else if (currentState == doorValue)
+        {
+            turnDoor();
+        }
 
         findNeighbours();
 
         for (int i = 0; i < neighbours.Count; i++)
         {
-            oldNeighboursStates.Add(manager.squaresStates[neighbours[i]]);
-            neighboursStates.Add(manager.squaresStates[neighbours[i]]);
+            //oldNeighboursStates.Add(manager.squaresStates[neighbours[i]]);
+            
+            if (inSecondArea == false)
+            {
+                neighboursStates.Add(manager.squaresStates[neighbours[i]]);
+            }
+            else if (inSecondArea == true)
+            {
+                neighboursStates.Add(manager.squaresStatesArea2[neighbours[i]]);
+            }
+
             if (neighboursStates[i] == 1)
             {
                 neighboursStateTotal += 1;
             }
         }
 
-        if (manager.squaresStates[squareNum] == 1)
+        if (currentState == 1)
         {
             turnOn();
         }
@@ -89,7 +112,15 @@ public class SquareControl : MonoBehaviour
 
         for (int i = 0; i < neighbours.Count; i++)
         {
-            neighboursStates[i] = manager.squaresStates[neighbours[i]];
+            
+            if (inSecondArea == false)
+            {
+                neighboursStates[i] = manager.squaresStates[neighbours[i]];
+            }
+            else if (inSecondArea == true)
+            {
+                neighboursStates[i] = manager.squaresStatesArea2[neighbours[i]];
+            }
         }
 
         if (currentState == sunDialValue)
@@ -143,32 +174,61 @@ public class SquareControl : MonoBehaviour
     {
         currentState = 1;
         animator.SetInteger("SquareState", 1);
-        //sr.sprite = sprites[6];
-        manager.squaresStates[squareNum] = 1;
+        
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = 1;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = 1;
+        }
     }
 
     void turnOff()
     {
         currentState = 0;
         animator.SetInteger("SquareState", 0);
-        //sr.sprite = sprites[4];
-        manager.squaresStates[squareNum] = 0;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = 0;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = 0;
+        }
     }
 
     void turnWater()
     {
         currentState = waterValue;
         animator.SetInteger("SquareState", 3);
-        //sr.sprite = sprites[0];
-        manager.squaresStates[squareNum] = waterValue;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = waterValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = waterValue;
+        }
     }
 
     void turnWaterPlant()
     {
         currentState = waterPlantValue;
         animator.SetInteger("SquareState", 4);
-        //sr.sprite = sprites[9];
-        manager.squaresStates[squareNum] = waterPlantValue;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = waterPlantValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = waterPlantValue;
+        }
+
         StartCoroutine("plantDeath");
         gameObject.tag = "WaterPlant";
     }
@@ -177,7 +237,15 @@ public class SquareControl : MonoBehaviour
     {
         Debug.Log("TurnDyingPlant");
         currentState = dyingWaterPlantValue;
-        manager.squaresStates[squareNum] = dyingWaterPlantValue;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = dyingWaterPlantValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = dyingWaterPlantValue;
+        }
     }
 
     void turnSunDial()
@@ -186,7 +254,15 @@ public class SquareControl : MonoBehaviour
         animator.enabled = false;
         sr.sprite = sprites[14];
         sundDialCollider.enabled = true;
-        manager.squaresStates[squareNum] = sunDialValue;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = sunDialValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = sunDialValue;
+        }
     }
 
     void turnStandaloneBush()
@@ -194,7 +270,15 @@ public class SquareControl : MonoBehaviour
         currentState = standaloneBushValue;
         animator.SetInteger("SquareState", 8);
         bushCollider.enabled = true;
-        manager.squaresStates[squareNum] = standaloneBushValue;
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = standaloneBushValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = standaloneBushValue;
+        }
     }
 
     void turnEdgeBush()
@@ -270,9 +354,16 @@ public class SquareControl : MonoBehaviour
             }
             edgeBushCollider.offset = new Vector2(0, -0.2f);
         }
-        
-        
-        manager.squaresStates[squareNum] = edgeBushValue;
+
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = edgeBushValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = edgeBushValue;
+        }
     }
 
     void turnCattleGrid()
@@ -282,7 +373,33 @@ public class SquareControl : MonoBehaviour
         sr.sprite = sprites[37];
         GetComponentInParent<BoxCollider2D>().isTrigger = false;
         gameObject.layer = 8;
-        manager.squaresStates[squareNum] = cattleGridValue;
+
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = cattleGridValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = cattleGridValue;
+        }
+    }
+
+    void turnDoor()
+    {
+        currentState = doorValue;
+        animator.SetInteger("SquareState", 1);
+        GetComponentInParent<BoxCollider2D>().size = new Vector2(0.5f, 1);
+        GetComponentInParent<BoxCollider2D>().offset = new Vector2(0.25f, 0);
+
+        if (inSecondArea == false)
+        {
+            manager.squaresStates[squareNum] = doorValue;
+        }
+        else if (inSecondArea == true)
+        {
+            manager.squaresStatesArea2[squareNum] = doorValue;
+        }
     }
 
     public void eatPlant(string coroutineName)
@@ -298,7 +415,7 @@ public class SquareControl : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             neighboursStateTotal = 0;
-            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue && currentState != standaloneBushValue)
+            if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue && currentState != standaloneBushValue && currentState != doorValue)
             {
                 for (int i = 0; i < neighbours.Count; i++)
                 {
@@ -356,14 +473,17 @@ public class SquareControl : MonoBehaviour
 
             if (currentState == waterValue)
             {
-                if (manager.temperature > 18)
-                for (int i = 0; i < neighbours.Count; i++)
+                if (manager.temperature > 50 && inSecondArea == false)
                 {
-                    if (neighboursStates[i] == 0 || neighboursStates[i] == 1)
+                    for (int i = 0; i < neighbours.Count; i++)
                     {
-                        turnOff();
+                        if (neighboursStates[i] == 0 || neighboursStates[i] == 1)
+                        {
+                            turnOff();
+                        }
                     }
                 }
+                
             }
             
 
@@ -425,6 +545,17 @@ public class SquareControl : MonoBehaviour
             if ((squareNum + 1) % gridSize != 0)
             {
                 neighbours.Add(squareNum + (gridSize + 1));
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (currentState == doorValue)
+        {
+            if (other.gameObject.tag == "Player")
+            {
+                manager.changingLevel = true;
             }
         }
     }

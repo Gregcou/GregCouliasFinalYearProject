@@ -17,6 +17,9 @@ public class AnimalManager : MonoBehaviour
             animals[counter].GetComponent<AnimalBehavior>().growthStage = 1;
             counter++;
         }
+
+        animals.Add(Instantiate(turtlePrefab, new Vector3(30, -10, 0), Quaternion.identity));
+        animals[animals.Count - 1].GetComponent<AnimalBehavior>().animalNum = animals.Count - 1;
     }
 
     // Update is called once per frame
