@@ -26,6 +26,7 @@ public class AnimalBehavior : MonoBehaviour
     public int growthStage = 0;
     public bool canHaveChild = false;
     public bool beingMovedTowards = false;
+    public string animalName;
 
     void Start()
     {
@@ -158,7 +159,7 @@ public class AnimalBehavior : MonoBehaviour
 
     public void haveChild()
     {
-        manager.haveChild(transform.position);
+        manager.haveChild(transform.position,animalName);
         canHaveChild = false;
     }
 

@@ -174,6 +174,7 @@ public class SquareControl : MonoBehaviour
     {
         currentState = 1;
         animator.SetInteger("SquareState", 1);
+        gameObject.tag = "Grass";
         
         if (inSecondArea == false)
         {
@@ -405,6 +406,12 @@ public class SquareControl : MonoBehaviour
     public void eatPlant(string coroutineName)
     {
         StopCoroutine(coroutineName);
+        turnOff();
+        gameObject.tag = "Square";
+    }
+
+    public void eatGrass()
+    {
         turnOff();
         gameObject.tag = "Square";
     }

@@ -73,7 +73,7 @@ MonoBehaviour:
   animalScript: {fileID: 7166105017300738317}
   currentSquare: {fileID: 0}
   currentAnimal: {fileID: 0}
-  maxHungerValue: 3
+  maxHungerValue: 5
 --- !u!1 &7166105017300738308
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,10 +88,9 @@ GameObject:
   - component: {fileID: 7166105017300738310}
   - component: {fileID: 7166105017300738311}
   - component: {fileID: 7166105017300738317}
-  - component: {fileID: 3521818942063448667}
   m_Layer: 7
-  m_Name: Turtle
-  m_TagString: Turtle
+  m_Name: Pig
+  m_TagString: Pig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 241312498282336622, guid: 44842dd7f3ed9bd4fb30c199078e993b, type: 3}
+  m_Sprite: {fileID: 7111047697173180341, guid: fc2af2660154d8540b0c1a544137e1af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -173,7 +172,7 @@ Animator:
   m_GameObject: {fileID: 7166105017300738308}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 425f336b890510d499b0f1e75aea2957, type: 2}
+  m_Controller: {fileID: 9100000, guid: 697070f97142d5444acda4dc44eb9e01, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -220,7 +219,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.6875, y: 0.96875}
+    oldSize: {x: 1, y: 1.8125}
     newSize: {x: 1.125, y: 1.8125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -245,7 +244,7 @@ MonoBehaviour:
   manager: {fileID: 0}
   rb: {fileID: 7166105017300738310}
   animator: {fileID: 7166105017300738305}
-  moveSpeed: 0.5
+  moveSpeed: 1.5
   movement: {x: 0, y: 0}
   moveable: 1
   randomDelay: 3
@@ -255,22 +254,7 @@ MonoBehaviour:
   growthStage: 0
   canHaveChild: 0
   beingMovedTowards: 0
-  animalName: Turtle
---- !u!114 &3521818942063448667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7166105017300738308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86cc5ac3afc565945b13bfcac94f8829, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pickedUp: 0
-  visionArea: {fileID: 7166105018576253679}
-  reachArea: {fileID: 7166105017039258317}
+  animalName: Pig
 --- !u!1 &7166105018576253679
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,4 +328,4 @@ MonoBehaviour:
   animalScript: {fileID: 7166105017300738317}
   currentSquare: {fileID: 0}
   currentAnimal: {fileID: 0}
-  maxHungerValue: 3
+  maxHungerValue: 5

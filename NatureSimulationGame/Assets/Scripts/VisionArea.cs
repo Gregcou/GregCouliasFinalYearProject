@@ -26,7 +26,7 @@ public class VisionArea : MonoBehaviour
                
                 if (movingToPlant == true)
                 {
-                    if (currentSquare.gameObject.tag != "WaterPlant")
+                    if (currentSquare.gameObject.tag == "Square")
                     {
                         Debug.Log("Current square != null");
                         animalScript.movingToObject = false;
@@ -49,7 +49,7 @@ public class VisionArea : MonoBehaviour
         {
             if (animalScript.movingToObject == false)
             {
-                if (other.gameObject.tag == "WaterPlant")
+                if (other.gameObject.tag == "WaterPlant" && animalScript.animalName == "Turtle")
                 {
                     if (animalScript.hungerLevel < maxHungerValue)
                     {
@@ -59,12 +59,33 @@ public class VisionArea : MonoBehaviour
                         movingToPlant = true;
                     }
                 }
-                else if (other.gameObject.tag == "Turtle")
+                else if (other.gameObject.tag == "Grass" && animalScript.animalName == "Pig")
+                {
+                    if (animalScript.hungerLevel < maxHungerValue)
+                    {
+                        Debug.Log("vision collision");
+                        currentSquare = other.gameObject.GetComponent<SquareControl>();
+                        animalScript.moveToObject(other.transform.position);
+                        movingToPlant = true;
+                    }
+                }
+                else if (other.gameObject.tag == "Turtle" && animalScript.animalName == "Turtle")
                 {
                     if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true && animalScript.beingMovedTowards == false)
                     {
                         other.GetComponent<AnimalBehavior>().beingMovedTowards = true;
                         Debug.Log("other turtle collision");
+                        currentAnimal = other.gameObject;
+                        animalScript.moveToObject(other.transform.position);
+                        other.GetComponent<AnimalBehavior>().moveSpeed = 0;
+                    }
+                }
+                else if (other.gameObject.tag == "Pig" && animalScript.animalName == "Pig")
+                {
+                    if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true && animalScript.beingMovedTowards == false)
+                    {
+                        other.GetComponent<AnimalBehavior>().beingMovedTowards = true;
+                        Debug.Log("other pig collision");
                         currentAnimal = other.gameObject;
                         animalScript.moveToObject(other.transform.position);
                         other.GetComponent<AnimalBehavior>().moveSpeed = 0;
@@ -79,7 +100,7 @@ public class VisionArea : MonoBehaviour
     {
         if (gameObject.name.Equals("ReachArea"))
         {
-            if (other.gameObject.tag == "WaterPlant")
+            if (other.gameObject.tag == "WaterPlant" && animalScript.animalName == "Turtle")
             {
                 if (animalScript.hungerLevel < maxHungerValue)
                 {
@@ -90,7 +111,18 @@ public class VisionArea : MonoBehaviour
                     movingToPlant = false;
                 }
             }
-            else if (other.gameObject.tag == "Turtle")
+            else if (other.gameObject.tag == "Grass" && animalScript.animalName == "Pig")
+            {
+                if (animalScript.hungerLevel < maxHungerValue)
+                {
+                    Debug.Log("reach area collision");
+                    other.gameObject.GetComponent<SquareControl>().eatGrass();
+                    animalScript.hungerLevel += 1;
+                    animalScript.movingToObject = false;
+                    movingToPlant = false;
+                }
+            }
+            else if (other.gameObject.tag == "Turtle" && animalScript.animalName == "Turtle")
             {
                 if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
                 {
@@ -100,6 +132,18 @@ public class VisionArea : MonoBehaviour
                     other.GetComponent<AnimalBehavior>().canHaveChild = false;
                     animalScript.movingToObject = false;
                     other.GetComponent<AnimalBehavior>().moveSpeed = 0.5f;
+                }
+            }
+            else if (other.gameObject.tag == "Pig" && animalScript.animalName == "Pig")
+            {
+                if (other.GetComponent<AnimalBehavior>().canHaveChild == true && animalScript.canHaveChild == true)
+                {
+                    Debug.Log("other turtle reach area collision");
+                    other.GetComponent<AnimalBehavior>().beingMovedTowards = false;
+                    animalScript.haveChild();
+                    other.GetComponent<AnimalBehavior>().canHaveChild = false;
+                    animalScript.movingToObject = false;
+                    other.GetComponent<AnimalBehavior>().moveSpeed = 1.5f;
                 }
             }
         }

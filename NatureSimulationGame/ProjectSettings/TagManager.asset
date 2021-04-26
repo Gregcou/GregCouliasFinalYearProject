@@ -8,6 +8,8 @@ TagManager:
   - WaterPlant
   - Turtle
   - PickedUp
+  - Grass
+  - Pig
   layers:
   - Default
   - TransparentFX

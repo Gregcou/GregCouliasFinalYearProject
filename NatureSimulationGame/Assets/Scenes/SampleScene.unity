@@ -339,6 +339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turtlePrefab: {fileID: 7166105017300738308, guid: 6e3feb0b549040047ada356a64cb2ba4, type: 3}
+  pigPrefab: {fileID: 7166105017300738308, guid: 921ee0fd21e59e446accc1970c6c04a1, type: 3}
   animals: []
 --- !u!4 &924012302
 Transform:
