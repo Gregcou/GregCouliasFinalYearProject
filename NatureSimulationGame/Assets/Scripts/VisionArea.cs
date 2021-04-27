@@ -116,7 +116,7 @@ public class VisionArea : MonoBehaviour
                 if (animalScript.hungerLevel < maxHungerValue)
                 {
                     Debug.Log("reach area collision");
-                    other.gameObject.GetComponent<SquareControl>().eatGrass();
+                    other.gameObject.GetComponent<SquareControl>().eatOrPickUpGrass();
                     animalScript.hungerLevel += 1;
                     animalScript.movingToObject = false;
                     movingToPlant = false;

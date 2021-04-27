@@ -71,9 +71,9 @@ public class GridManager : MonoBehaviour
 
         createEdges(squaresStatesArea2);
 
-        squaresStatesArea2[27] = 1;
-        squaresStatesArea2[28] = 1;
-        squaresStatesArea2[30] = 1;
+        //squaresStatesArea2[27] = 1;
+        //squaresStatesArea2[28] = 1;
+        //squaresStatesArea2[30] = 1;
 
         //for (int i = 0; i < 15; i++)
         //{

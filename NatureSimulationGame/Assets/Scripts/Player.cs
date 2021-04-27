@@ -17,6 +17,11 @@ public class Player : MonoBehaviour
     public bool pickUp = false;
     public bool drop = false;
 
+    bool holdingObject = false;
+    bool holdingGrass = false;
+
+    public GameObject seedPacket;
+
     void Start()
     {
 
@@ -66,15 +71,22 @@ public class Player : MonoBehaviour
             moveSpeed = 5;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (holdingObject == false)
         {
-            pickUp = true;
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                pickUp = true;
+            }
         }
+        
+        
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
             pickUp = false;
         }
+
+
 
         if (Input.GetKeyDown(KeyCode.T))
         {
@@ -84,6 +96,46 @@ public class Player : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.T))
         {
             drop = false;
+        }
+
+        if (drop == true && holdingGrass == true)
+        {
+            seedPacket.SetActive(false);
+            holdingObject = false;
+            holdingGrass = false;
+        }
+
+        if (holdingGrass)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                pickUp = true;
+            }
+        }
+
+        if (holdingGrass == true)
+        {
+            if (faceDirection == 0)
+            {
+                seedPacket.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+                seedPacket.GetComponent<SpriteRenderer>().sortingOrder = 2;
+
+            }
+            else if (faceDirection == 2)
+            {
+                seedPacket.transform.position = transform.position + new Vector3(-0.3f, -0.5f, 0);
+                seedPacket.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            else if (faceDirection == 3)
+            {
+                seedPacket.transform.position = transform.position + new Vector3(0.3f, -0.5f, 0);
+                seedPacket.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            }
+            else if (faceDirection == 1)
+            {
+                seedPacket.transform.position = transform.position + new Vector3(0, -0.2f, 0);
+                seedPacket.GetComponent<SpriteRenderer>().sortingOrder = 0;
+            }
         }
 
     }
@@ -100,11 +152,13 @@ public class Player : MonoBehaviour
             Debug.Log("turtle collide");
             if (pickUp == true)
             {
+                holdingObject = true;
                 other.gameObject.GetComponent<TurtleBehavior>().pickedUpFollow(transform,this);
             }
             else if(drop == true)
             {
                 other.gameObject.GetComponent<TurtleBehavior>().pickedUpStop();
+                holdingObject = false;
             }
         }
     }
@@ -117,7 +171,35 @@ public class Player : MonoBehaviour
             if (drop == true)
             {
                 other.gameObject.GetComponent<TurtleBehavior>().pickedUpStop();
+                holdingObject = false;
             }
         }
+        else if (other.gameObject.tag == "Grass")
+        {
+            //Debug.Log("Grass trigger");
+            if (pickUp == true && holdingObject == false)
+            {
+                other.gameObject.GetComponent<SquareControl>().eatOrPickUpGrass();
+                seedPacket.SetActive(true);
+                holdingObject = true;
+                holdingGrass = true;
+            }
+        }
+        else if (other.gameObject.tag == "Square")
+        {
+            if (other.gameObject.GetComponent<SquareControl>().currentState == 0)
+            {
+                //Debug.Log("dirt trigger");
+                if (pickUp == true && holdingGrass == true)
+                {
+                    other.gameObject.GetComponent<SquareControl>().putDownGrass();
+                    seedPacket.SetActive(false);
+                    holdingObject = false;
+                    holdingGrass = false;
+                }
+            }
+        }
+
+
     }
 }

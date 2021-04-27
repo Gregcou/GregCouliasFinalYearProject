@@ -119,6 +119,9 @@ TextureImporter:
   - first:
       213: -8561847614913480712
     second: MiscSpriteSheet_38
+  - first:
+      213: 375108569468576359
+    second: MiscSpriteSheet_39
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -1022,6 +1025,27 @@ TextureImporter:
       bones: []
       spriteID: 8f77e04f4f43e2980800000000000000
       internalID: -8561847614913480712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MiscSpriteSheet_39
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 7
+        width: 16
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 762216ba147a43500800000000000000
+      internalID: 375108569468576359
       vertices: []
       indices: 
       edges: []

@@ -26,18 +26,18 @@ public class TurtleBehavior : MonoBehaviour
             if (playerScript.faceDirection == 0)
             {
                 transform.position = playerTransform.position + new Vector3(0, -0.5f, 0);
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 2;
 
             }
             else if (playerScript.faceDirection == 2)
             {
                 transform.position = playerTransform.position + new Vector3(-0.3f, -0.5f, 0);
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 2;
             }
             else if (playerScript.faceDirection == 3)
             {
                 transform.position = playerTransform.position + new Vector3(0.3f, -0.5f, 0);
-                spriteRenderer.sortingOrder = 1;
+                spriteRenderer.sortingOrder = 2;
             }
             else if (playerScript.faceDirection == 1)
             {
