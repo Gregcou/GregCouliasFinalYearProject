@@ -13,12 +13,12 @@ public class VisionArea : MonoBehaviour
 
     void Start()
     {
-        //animalScript = GetComponentInParent<AnimalBehavior>();
+
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // checks if animal or plant has died while moving towards it and stops if it does
         if (animalScript.movingToObject == true && gameObject.name.Equals("VisionArea"))
         {
             if (currentSquare != null)
@@ -43,12 +43,14 @@ public class VisionArea : MonoBehaviour
         }
     }
 
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (gameObject.name.Equals("VisionArea"))
         {
             if (animalScript.movingToObject == false)
             {
+                // finds food or another animal and starts the animal moving towards it
                 if (other.gameObject.tag == "WaterPlant" && animalScript.animalName == "Turtle")
                 {
                     if (animalScript.hungerLevel < maxHungerValue)
@@ -77,6 +79,7 @@ public class VisionArea : MonoBehaviour
                         Debug.Log("other turtle collision");
                         currentAnimal = other.gameObject;
                         animalScript.moveToObject(other.transform.position);
+                        // stop the second animal so they can reach eachother and have a child
                         other.GetComponent<AnimalBehavior>().moveSpeed = 0;
                     }
                 }
@@ -98,6 +101,7 @@ public class VisionArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        // when animal reaches its target either eat the plant or have a child
         if (gameObject.name.Equals("ReachArea"))
         {
             if (other.gameObject.tag == "WaterPlant" && animalScript.animalName == "Turtle")

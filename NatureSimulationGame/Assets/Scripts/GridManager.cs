@@ -11,7 +11,6 @@ public class GridManager : MonoBehaviour
     public int gridSize;
     public int[] squaresStates;
     public int[] squaresStatesArea2;
-    public float timeScale;
     public float worldTime = 0.0f;
     public int worldTimeSeconds;
     public int daylength;
@@ -26,10 +25,10 @@ public class GridManager : MonoBehaviour
     {
 
         StartCoroutine(increaseTemperature());
-        Time.timeScale = timeScale;
         squaresStates = new int[(int)Mathf.Pow(gridSize, 2)];
 
         counter = 0;
+        // create a grid of squares to create the first area of the level
         for (int i=0;i<gridSize; i++)
         {
             for (int j=0;j<gridSize; j++)
@@ -42,6 +41,7 @@ public class GridManager : MonoBehaviour
 
         createEdges(squaresStates);
 
+        // set the initial states for the first area squares
         squaresStates[27] = 1;
         squaresStates[28] = 1;
         squaresStates[30] = 1;
@@ -62,26 +62,10 @@ public class GridManager : MonoBehaviour
         squaresStates[58] = 10;
         squaresStates[59] = 11;
 
-
-
-
+        // set the initial states for the second area squares
         squaresStatesArea2 = new int[(int)Mathf.Pow(gridSize, 2)];
 
-        
-
         createEdges(squaresStatesArea2);
-
-        //squaresStatesArea2[27] = 1;
-        //squaresStatesArea2[28] = 1;
-        //squaresStatesArea2[30] = 1;
-
-        //for (int i = 0; i < 15; i++)
-        //{
-        //    squaresStatesArea2[14 + (gridSize * i)] = 3;
-        //    squaresStatesArea2[15 + (gridSize * i)] = 3;
-        //    squaresStatesArea2[16 + (gridSize * i)] = 3;
-        //}
-
         
         for (int i=373;i<379;i++)
         {
@@ -115,23 +99,18 @@ public class GridManager : MonoBehaviour
         squaresStatesArea2[296] = 4;
         squaresStatesArea2[30] = 1;
 
-        //squaresStatesArea2[50] = 10;
-        //squaresStatesArea2[85] = 7;
         squaresStatesArea2[105] = 8;
         squaresStatesArea2[40] = 1;
 
-        //switchStates();
         loadArea2();
-        //switchStates();
 
     }
 
     void Update()
     {
+        // track the current time and end the game after 3 days
         worldTime += Time.deltaTime;
         worldTimeSeconds = (int)(worldTime % 60);
-        //Debug.Log("Time = " + worldTimeSeconds);
-        //Debug.Log("worldtime = " + worldTime);
 
         if (worldTimeSeconds == daylength * 3)
         {
@@ -144,6 +123,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    // sets a border of bushes which the player can't walk through around the level
     void createEdges(int[] squaresStates)
     {
         for (int i = 0; i < squaresStates.Length; i++)
@@ -174,6 +154,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    
     private IEnumerator increaseTemperature()
     {
         int tempIncrease = 1;
@@ -186,6 +167,7 @@ public class GridManager : MonoBehaviour
 
     }
 
+    // count and save the number of animals and plants left and load the end screen
     void endGame()
     {
         int amountOfPlants = 0;
@@ -201,6 +183,7 @@ public class GridManager : MonoBehaviour
         SceneManager.LoadScene("EndScreen");
     }
 
+    // create the second area
     void loadArea2()
     {
         int counter2 = 0;
@@ -210,8 +193,6 @@ public class GridManager : MonoBehaviour
             {
                 squaresArea2.Add(Instantiate(squarePrefab, new Vector3(j + gridSize, -i, 0), Quaternion.identity));
                 squaresArea2[counter2].GetComponent<SquareControl>().squareNum = counter2;
-                //squaresArea2[counter2].SetActive(false);
-                //squaresArea2[counter].GetComponent<SpriteRenderer>().enabled = false;
                 squaresArea2[counter2].GetComponent<SquareControl>().inSecondArea = true;
                 counter2++;
                 
@@ -219,48 +200,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
-    void switchStates()
-    {
-        int[] squaresStatesTemp;
-
-
-        squaresStatesTemp = squaresStates;
-
-        squaresStates = squaresStatesArea2;
-        squaresStatesArea2 = squaresStatesTemp;
-
-        
-    }
-
-    void switchAreas()
-    {
-        Debug.Log("Switch areas");
-        if (loadedArea == 1)
-        {
-            for (int i = 0; i < squares.Count; i++)
-            {
-                //squares[i].SetActive(false);
-                squares[i].GetComponent<SpriteRenderer>().enabled = false;
-                //squaresArea2[i].SetActive(true);
-                squaresArea2[i].GetComponent<SpriteRenderer>().enabled = true;
-                loadedArea = 2;
-            }
-        }
-        else if (loadedArea == 2)
-        {
-            for (int i = 0; i < squares.Count; i++)
-            {
-                //squares[i].SetActive(true);
-                squares[i].GetComponent<SpriteRenderer>().enabled = true;
-                //squaresArea2[i].SetActive(false);
-                squaresArea2[i].GetComponent<SpriteRenderer>().enabled = false;
-                loadedArea = 1;
-            }
-        }
-
-        changingLevel = false;
-    }
-
+    // when walking between areas cover the area the player came from 
     void switchHiddenArea()
     {
         if (loadedArea == 1)

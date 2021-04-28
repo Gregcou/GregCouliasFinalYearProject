@@ -39,14 +39,13 @@ public class AnimalBehavior : MonoBehaviour
         StartCoroutine(growUp());
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         if (moveable == true)
         {
             if (movingToObject == true)
             {
-                //movement = (positionToMoveTo - rb.position).normalized;
                 if (Mathf.Abs(rb.position.x - positionToMoveTo.x) > 0.3)
                 {
                     if (positionToMoveTo.x > rb.position.x)
@@ -69,11 +68,6 @@ public class AnimalBehavior : MonoBehaviour
                         movement = new Vector2(0, -1);
                     }
                 }
-
-                //if (Mathf.Abs(rb.position.x - positionToMoveTo.x) < 1 && Mathf.Abs(rb.position.y - positionToMoveTo.y) < 1)
-                //{
-                //    movingToObject = false;
-                //}
             }
             else
             {
@@ -81,7 +75,7 @@ public class AnimalBehavior : MonoBehaviour
                 movement.y = verticalMovementValue;
             }
 
-
+            // ensure colliders for sight and reach are facing the same direction as animal
             if (movement.x > 0)
             {
                 faceDirection = 3;
@@ -111,20 +105,21 @@ public class AnimalBehavior : MonoBehaviour
                 boxCollider.size = new Vector2(0.6875f, 0.96875f);
             }
 
+            // passes the movement to the animators blendtree through variables so use the correct directional animations
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
+            // animator uses for changing between idle and walking animations
             animator.SetFloat("Speed", movement.sqrMagnitude);
             animator.SetFloat("FaceDirection", faceDirection);
         }
-        
 
-        
 
         if (hungerLevel < 0)
         {
             death();
         }
 
+        // increase the size of the animal as it grows
         if (growthStage == 0)
         {
             transform.localScale = new Vector3(0.5f, 0.5f, 1);
@@ -141,6 +136,7 @@ public class AnimalBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // move the animal based on the current position, random movement values and movement speed
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -163,6 +159,7 @@ public class AnimalBehavior : MonoBehaviour
         canHaveChild = false;
     }
 
+    // randomly pick directions to move or to stay idle
     private IEnumerator randomMovement()
     {
         while (true)
@@ -207,6 +204,7 @@ public class AnimalBehavior : MonoBehaviour
         }
     }
 
+    // control the animals level of growth over time
     private IEnumerator growUp()
     {
         if (growthStage == 0)

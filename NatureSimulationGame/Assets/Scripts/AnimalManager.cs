@@ -11,6 +11,7 @@ public class AnimalManager : MonoBehaviour
     void Start()
     {
         int counter = 0;
+        // spawn turtles
         for (int i = 0; i < 2; i++)
         {
             animals.Add(Instantiate(turtlePrefab, new Vector3(i+i*3, -10, 0), Quaternion.identity));
@@ -19,6 +20,7 @@ public class AnimalManager : MonoBehaviour
             counter++;
         }
 
+        // spawn pigs
         for (int i = 0; i < 2; i++)
         {
             animals.Add(Instantiate(pigPrefab, new Vector3(i + i * 4, -15, 0), Quaternion.identity));
@@ -31,11 +33,12 @@ public class AnimalManager : MonoBehaviour
         animals[animals.Count - 1].GetComponent<AnimalBehavior>().animalNum = animals.Count - 1;
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         
     }
+
 
     public void haveChild(Vector3 animalPosition, string animalName)
     {

@@ -36,6 +36,8 @@ public class SquareControl : MonoBehaviour
     {
         manager = GameObject.Find("SquareManager").GetComponent<GridManager>();
         gridSize = manager.gridSize;
+        
+        // use the set of states for the correct area the square is in
         if (inSecondArea == false)
         {
             currentState = manager.squaresStates[squareNum];
@@ -45,7 +47,7 @@ public class SquareControl : MonoBehaviour
             currentState = manager.squaresStatesArea2[squareNum];
         }
 
-
+        // when spawned the square checks the states from the manager and becomes the right type
         if (currentState == waterValue)
         {
             turnWater();
@@ -77,10 +79,9 @@ public class SquareControl : MonoBehaviour
 
         findNeighbours();
 
+        // get the neighbours states so they can be checked
         for (int i = 0; i < neighbours.Count; i++)
         {
-            //oldNeighboursStates.Add(manager.squaresStates[neighbours[i]]);
-            
             if (inSecondArea == false)
             {
                 neighboursStates.Add(manager.squaresStates[neighbours[i]]);
@@ -108,8 +109,7 @@ public class SquareControl : MonoBehaviour
 
     void Update()
     {
-        
-
+        // constantly update the neighbour states from the manager
         for (int i = 0; i < neighbours.Count; i++)
         {
             
@@ -123,11 +123,9 @@ public class SquareControl : MonoBehaviour
             }
         }
 
+        // change the sundial sprite based on time of day to move it around
         if (currentState == sunDialValue)
         {
-            //Debug.Log(manager.daylength);
-            //Debug.Log(manager.daylength / 8);
-            //Debug.Log((manager.daylength / 8) * 2);
             if (manager.worldTimeSeconds >= ((manager.daylength/8)) + timeToAdd && manager.worldTimeSeconds <= ((manager.daylength / 8) * 2) + timeToAdd)
             {
                 sr.sprite = sprites[15];
@@ -170,6 +168,7 @@ public class SquareControl : MonoBehaviour
         }
     }
 
+    // turns the square to the correct state and updates the animator
     void turnOn()
     {
         currentState = 1;
@@ -200,12 +199,17 @@ public class SquareControl : MonoBehaviour
         {
             manager.squaresStatesArea2[squareNum] = 0;
         }
+        if (bushCollider.enabled == true)
+        {
+            bushCollider.enabled = false;
+        }
     }
 
     void turnWater()
     {
         currentState = waterValue;
         animator.SetInteger("SquareState", 3);
+        bushCollider.enabled = true;
 
         if (inSecondArea == false)
         {
@@ -253,6 +257,7 @@ public class SquareControl : MonoBehaviour
     void turnSunDial()
     {
         currentState = sunDialValue;
+        // the sundial uses sprite changes rather than an animation
         animator.enabled = false;
         sr.sprite = sprites[14];
         sundDialCollider.enabled = true;
@@ -271,6 +276,7 @@ public class SquareControl : MonoBehaviour
     {
         currentState = standaloneBushValue;
         animator.SetInteger("SquareState", 8);
+        // needs to stop the player and animal so has a seperate collider
         bushCollider.enabled = true;
 
         if (inSecondArea == false)
@@ -288,6 +294,7 @@ public class SquareControl : MonoBehaviour
         currentState = edgeBushValue;
         animator.enabled = false;
         edgeBushCollider.enabled = true;
+        // uses the current sprite for the edge of the map this square is on and corners
         if (squareNum == 0)
         {
             sr.sprite = sprites[33];
@@ -373,6 +380,7 @@ public class SquareControl : MonoBehaviour
         currentState = cattleGridValue;
         animator.enabled = false;
         sr.sprite = sprites[37];
+        // has to collide with animals so removes trigger so collisions occur
         GetComponentInParent<BoxCollider2D>().isTrigger = false;
         gameObject.layer = 8;
 
@@ -391,6 +399,7 @@ public class SquareControl : MonoBehaviour
     {
         currentState = doorValue;
         animator.SetInteger("SquareState", 1);
+        // collider must be smaller to ensure player cant trigger it without moving between areas
         GetComponentInParent<BoxCollider2D>().size = new Vector2(0.5f, 1);
         GetComponentInParent<BoxCollider2D>().offset = new Vector2(0.25f, 0);
 
@@ -428,6 +437,7 @@ public class SquareControl : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             neighboursStateTotal = 0;
+            // become grass if enough neighbours are grass
             if (currentState != waterValue && currentState != waterPlantValue && currentState != dyingWaterPlantValue && currentState != sunDialValue && currentState != standaloneBushValue && currentState != doorValue)
             {
                 for (int i = 0; i < neighbours.Count; i++)
@@ -443,6 +453,7 @@ public class SquareControl : MonoBehaviour
                     turnOn();
                 }
 
+                // checks that the plant only spreads next to water and next to previous plants        
                 bool nextToWater = false;
                 bool nextToDyingPlant = false;
                 for (int i = 0; i < neighbours.Count; i++)
@@ -458,12 +469,14 @@ public class SquareControl : MonoBehaviour
                     }
                 }
 
+                // randomly spread waterplant to surrounding squares
                 if (nextToWater == true && nextToDyingPlant == true && Random.Range(0, 100) <= 20)
                 {
                     turnWaterPlant();
                 }
             }
 
+            // changes the waterplant animation have grass if it its neighbours are grass rather than dirt
             if (currentState == waterPlantValue)
             {
                 int numOfGrass = 0;
@@ -484,6 +497,7 @@ public class SquareControl : MonoBehaviour
                 }
             }
 
+            // water turns to dirt if the temperature is high enough starting with the edges
             if (currentState == waterValue)
             {
                 if (manager.temperature > 50 && inSecondArea == false)
@@ -507,6 +521,7 @@ public class SquareControl : MonoBehaviour
         }
     }
 
+    // controls when the plant can spread then die
     private IEnumerator plantDeath()
     {
         yield return new WaitForSeconds(WaterPlantLifeLength);
@@ -518,7 +533,7 @@ public class SquareControl : MonoBehaviour
     }
 
    
-
+    // use the gridsize and the squares number to find the squares touching it
     private void findNeighbours()
     {
         // top row
@@ -562,8 +577,10 @@ public class SquareControl : MonoBehaviour
         }
     }
 
+
     private void OnTriggerExit2D(Collider2D other)
     {
+        // hide the previous area when moving past the door to the other one
         if (currentState == doorValue)
         {
             if (other.gameObject.tag == "Player")

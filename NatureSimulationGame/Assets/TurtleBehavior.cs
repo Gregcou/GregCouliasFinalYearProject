@@ -21,6 +21,7 @@ public class TurtleBehavior : MonoBehaviour
 
     void Update()
     {
+        // keeps the turtle in front of the players body while being carried
         if (pickedUp)
         {
             if (playerScript.faceDirection == 0)
@@ -42,12 +43,14 @@ public class TurtleBehavior : MonoBehaviour
             else if (playerScript.faceDirection == 1)
             {
                 transform.position = playerTransform.position + new Vector3(0, -0.2f, 0);
+                // makes the turtle appear behind the player when walking up
                 spriteRenderer.sortingOrder = 0;
             }
 
         }
     }
 
+    // stops the turtle moving or interacting with anything while being carried
     public void pickedUpFollow(Transform playerTransform, Player playerScript)
     {
         pickedUp = true;

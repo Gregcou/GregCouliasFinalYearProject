@@ -33,43 +33,31 @@ public class Player : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        if (animator.GetBool("Cast") == false)
+        // sets the direction the player should face based on its movement
+        if (movement.x > 0)
         {
-            if (movement.x > 0)
-            {
-                faceDirection = 3;
-            }
-            else if (movement.x < 0)
-            {
-                faceDirection = 2;
-            }
-            else if (movement.y > 0)
-            {
-                faceDirection = 1;
-            }
-            else if (movement.y < 0)
-            {
-                faceDirection = 0;
-            }
+            faceDirection = 3;
+        }
+        else if (movement.x < 0)
+        {
+            faceDirection = 2;
+        }
+        else if (movement.y > 0)
+        {
+            faceDirection = 1;
+        }
+        else if (movement.y < 0)
+        {
+            faceDirection = 0;
         }
 
-
+        // passes the movement to the animators blendtree through variables so use the correct directional animations
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
+        // animator uses for changing between idle and walking animations
         animator.SetFloat("Speed", movement.sqrMagnitude);
         animator.SetFloat("FaceDirection", faceDirection);
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            animator.SetBool("Cast", true);
-            moveSpeed = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            animator.SetBool("Cast", false);
-            moveSpeed = 5;
-        }
 
         if (holdingObject == false)
         {
@@ -79,8 +67,6 @@ public class Player : MonoBehaviour
             }
         }
         
-        
-
         if (Input.GetKeyUp(KeyCode.Space))
         {
             pickUp = false;
@@ -98,12 +84,14 @@ public class Player : MonoBehaviour
             drop = false;
         }
 
+
         if (drop == true && holdingGrass == true)
         {
             seedPacket.SetActive(false);
             holdingObject = false;
             holdingGrass = false;
         }
+
 
         if (holdingGrass)
         {
@@ -113,6 +101,7 @@ public class Player : MonoBehaviour
             }
         }
 
+        // control the side of the body the seed packet is on while carrying it
         if (holdingGrass == true)
         {
             if (faceDirection == 0)
@@ -142,6 +131,7 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // move the player based on the current position, user input and movement speed
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
@@ -149,7 +139,6 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Turtle")
         {
-            Debug.Log("turtle collide");
             if (pickUp == true)
             {
                 holdingObject = true;
@@ -176,7 +165,6 @@ public class Player : MonoBehaviour
         }
         else if (other.gameObject.tag == "Grass")
         {
-            //Debug.Log("Grass trigger");
             if (pickUp == true && holdingObject == false)
             {
                 other.gameObject.GetComponent<SquareControl>().eatOrPickUpGrass();
@@ -189,7 +177,6 @@ public class Player : MonoBehaviour
         {
             if (other.gameObject.GetComponent<SquareControl>().currentState == 0)
             {
-                //Debug.Log("dirt trigger");
                 if (pickUp == true && holdingGrass == true)
                 {
                     other.gameObject.GetComponent<SquareControl>().putDownGrass();
