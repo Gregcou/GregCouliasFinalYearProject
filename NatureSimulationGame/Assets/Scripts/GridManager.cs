@@ -110,7 +110,7 @@ public class GridManager : MonoBehaviour
     {
         // track the current time and end the game after 3 days
         worldTime += Time.deltaTime;
-        worldTimeSeconds = (int)(worldTime % 60);
+        worldTimeSeconds = (int)(worldTime);
 
         if (worldTimeSeconds == daylength * 3)
         {

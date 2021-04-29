@@ -8,7 +8,6 @@ public class Menu : MonoBehaviour {
 
     public Text endGameInfo;
 
-	// Use this for initialization
 	void Start ()
     {
         if (endGameInfo != null)
@@ -19,7 +18,7 @@ public class Menu : MonoBehaviour {
         
     }
 	
-	// Update is called once per frame
+	
 	void Update () {
 		
 	}

@@ -149,10 +149,11 @@ MonoBehaviour:
   - {fileID: -2608573792876980603, guid: 82176d251c71a0549b6e298459576182, type: 3}
   - {fileID: 2169055002993701685, guid: 82176d251c71a0549b6e298459576182, type: 3}
   animator: {fileID: 4571040420320177717}
-  WaterPlantLifeLength: 120
+  WaterPlantLifeLength: 20
   bushCollider: {fileID: 992733934506910134}
   sundDialCollider: {fileID: 4629831525148106459}
   edgeBushCollider: {fileID: -8269061752852535758}
+  inSecondArea: 0
 --- !u!61 &-1491491690884165597
 BoxCollider2D:
   m_ObjectHideFlags: 0

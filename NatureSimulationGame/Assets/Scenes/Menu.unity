@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 1449601876}
   - component: {fileID: 1449601875}
   m_Layer: 5
-  m_Name: Noughts and Crosses
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -625,7 +625,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -636,7 +636,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game name
+  m_Text: "Nature Simulation \nGame"
 --- !u!222 &1449601876
 CanvasRenderer:
   m_ObjectHideFlags: 0
