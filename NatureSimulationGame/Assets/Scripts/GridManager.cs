@@ -55,6 +55,11 @@ public class GridManager : MonoBehaviour
         squaresStates[gridSize * 6 + 17] = 4;
         squaresStates[gridSize * 6 + 13] = 4;
         squaresStates[gridSize * 8 + 17] = 4;
+        squaresStates[213] = 4;
+        squaresStates[237] = 4;
+        squaresStates[293] = 4;
+        squaresStates[315] = 4;
+
         squaresStates[30] = 1;
 
         squaresStates[50] = 7;
@@ -174,6 +179,11 @@ public class GridManager : MonoBehaviour
         for (int i=0;i<squaresStates.Length;i++)
         {
             if (squaresStates[i] == 4 || squaresStates[i] == 5)
+            {
+                amountOfPlants++;
+            }
+
+            if (squaresStatesArea2[i] == 4 || squaresStatesArea2[i] == 5)
             {
                 amountOfPlants++;
             }

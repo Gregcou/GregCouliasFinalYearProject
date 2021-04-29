@@ -470,7 +470,7 @@ public class SquareControl : MonoBehaviour
                 }
 
                 // randomly spread waterplant to surrounding squares
-                if (nextToWater == true && nextToDyingPlant == true && Random.Range(0, 100) <= 20)
+                if (nextToWater == true && nextToDyingPlant == true && Random.Range(0, 100) <= 40)
                 {
                     turnWaterPlant();
                 }
