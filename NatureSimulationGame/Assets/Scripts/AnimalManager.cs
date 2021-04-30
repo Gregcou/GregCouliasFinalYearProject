@@ -23,7 +23,7 @@ public class AnimalManager : MonoBehaviour
         // spawn pigs
         for (int i = 0; i < 2; i++)
         {
-            animals.Add(Instantiate(pigPrefab, new Vector3(i + i * 4, -15, 0), Quaternion.identity));
+            animals.Add(Instantiate(pigPrefab, new Vector3(30 + i * 4, -15, 0), Quaternion.identity));
             animals[counter].GetComponent<AnimalBehavior>().animalNum = counter;
             animals[counter].GetComponent<AnimalBehavior>().growthStage = 1;
             counter++;
